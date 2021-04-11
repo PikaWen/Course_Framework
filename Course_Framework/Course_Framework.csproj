@@ -166,9 +166,19 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fontawesome_all.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\vue-2.6.12.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -201,6 +211,9 @@
     <Content Include="webfonts\fa-solid-900.svg" />
     <Content Include="Areas\Course\Views\Course\CourseEditArea.cshtml" />
     <Content Include="Areas\Course\Views\Course\CourseList.cshtml" />
+    <Content Include="Areas\Student\Views\Student\Index.cshtml" />
+    <Content Include="Areas\Student\Views\Student\StudentList.cshtml" />
+    <Content Include="Areas\Student\Views\Student\StudentEditArea.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -324,7 +337,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Course\Data\" />
     <Folder Include="Areas\Student\Data\" />
-    <Folder Include="Areas\Student\Views\Student\" />
     <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>

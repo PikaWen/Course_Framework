@@ -8,6 +8,12 @@ namespace Course_Framework.Models.DB
 {
     public class SE_Student
     {
+        public SE_Student()
+        {
+            Birth = DateTime.Now;
+        }
+
+
         [Required]
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentNo { get; set; }

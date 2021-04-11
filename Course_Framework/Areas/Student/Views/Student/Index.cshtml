@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Course_Framework.Models.DB.SE_Student>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+}
+<div id="editarea"></div>
+<div id="listarea"></div>
+
+<script>
+    $(document).ready(function () {
+        GetStudentEditArea(0);
+        GetStudentList();
+    });
+
+    function GetStudentEditArea(No) {
+        $.ajax({
+            method: "get",
+            data: { no: No},
+            async: false,
+            type: "html",
+            url: '@Url.Action("StudentEditArea", "Student", new { area = "Student" })',
+            success: function (result) {
+                $("#editarea").empty();
+                $("#editarea").append(result);
+            }
+        })
+    }
+
+    function GetStudentList() {
+        $.ajax({
+            method: "get",
+            data: "",
+            async: false,
+            type: "html",
+            url: '@Url.Action("StudentList", "Student", new { area = "Student" })',
+            success: function (result) {
+                $("#listarea").empty();
+                $("#listarea").append(result);
+            }
+        });
+    }
+
+</script>

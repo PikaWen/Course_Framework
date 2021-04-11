@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Course_Framework.Models.DB.SE_Student>
+<div class="table-responsive mt-3">
+    <table class="table table-bordered align-middle">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">學號</th>
+                <th scope="col">姓名</th>
+                <th scope="col">生日</th>
+                <th scope="col">Email</th>
+                <th scope="col">功能</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td>@data.StudentID</td>
+                    <td>@data.Name</td>
+                    <td>@data.Birth.ToString("yyyy-MM-dd")</td>
+                    <td>@data.Email</td>
+                    <td>
+                        <i class="far fa-edit pl-1 pr-1" title="編輯" style="cursor: pointer;" onclick="GetStudentEditArea(@data.StudentNo);"></i>
+                        <i class="far fa-trash-alt pl-1 pr-1" title="刪除" style="cursor: pointer;" onclick="CheckDelete(@data.StudentNo);"></i>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+    function CheckDelete(no) {
+        OpenPopUp("刪除學生", "確定要刪除此學生 ?", "確定", "DeleteStudent(" + no + ");");
+    }
+
+    function DeleteStudent(No) {
+        $.ajax({
+            method: "post",
+            data: { no: No },
+            async: false,
+            url: '@Url.Action("DeleteStudent", "Student", new { area = "Student" })',
+            success: function (result) {
+                if (result.success) {
+                    GetStudentList();
+                }
+
+            }
+        });
+    }
+
+</script>
