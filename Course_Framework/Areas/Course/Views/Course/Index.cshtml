@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Course_Framework.Models.DB.BS_Course>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Course/Views/Shared/_Layout.cshtml";
+}
+<div id="editarea"></div>
+<div id="listarea"></div>
+
+<script>
+    $(document).ready(function () {
+        GetCourseEditArea(0);
+        GetCourseList();
+    });
+
+    function GetCourseEditArea(No) {
+        $.ajax({
+            method: "get",
+            data: { no: No},
+            async: false,
+            type: "html",
+            url: '@Url.Action("CourseEditArea","Course", new { area = "Course" })',
+            success: function (result) {
+                $("#editarea").empty();
+                $("#editarea").append(result);
+            }
+        })
+    }
+
+    function GetCourseList() {
+        $.ajax({
+            method: "get",
+            data: "",
+            async: false,
+            type: "html",
+            url: '@Url.Action("CourseList","Course", new { area = "Course" })',
+            success: function (result) {
+                $("#listarea").empty();
+                $("#listarea").append(result);
+            }
+        });
+    }
+
+</script>

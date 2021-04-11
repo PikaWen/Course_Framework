@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course_Framework", "Course_Framework\Course_Framework.csproj", "{C728C676-78D5-44C2-8543-AD5377E85624}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C728C676-78D5-44C2-8543-AD5377E85624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C728C676-78D5-44C2-8543-AD5377E85624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C728C676-78D5-44C2-8543-AD5377E85624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C728C676-78D5-44C2-8543-AD5377E85624}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_AutoCreateNewLanguageFiles = False
+		RESX_NeutralResourcesLanguage = en-US
+		RESX_SortFileContentOnSave = False
+		SolutionGuid = {44D00320-1397-46BB-9239-250C46D4A0CE}
+	EndGlobalSection
+EndGlobal

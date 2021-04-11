@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Course_Framework.Models.DB.BS_Course>
+<div class="table-responsive mt-3">
+    <table class="table table-bordered align-middle">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">課號</th>
+                <th scope="col">課名</th>
+                <th scope="col">學分</th>
+                <th scope="col">上課地點</th>
+                <th scope="col">講師名字</th>
+                <th scope="col">功能</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td>@data.CourseID</td>
+                    <td>@data.Name</td>
+                    <td>@data.Credits</td>
+                    <td>@data.Address</td>
+                    <td>@data.TeacherName</td>
+                    <td>
+                        <i class="far fa-edit pl-1 pr-1" title="編輯" style="cursor: pointer;" onclick="GetCourseEditArea(@data.CourseNo);"></i>
+                        <i class="far fa-trash-alt pl-1 pr-1" title="刪除" style="cursor: pointer;" onclick="CheckDelete(@data.CourseNo);"></i>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+    function CheckDelete(no) {
+        OpenPopUp("刪除課程", "確定是否要刪除課程 ?", "確定", "DeleteCourse(" + no + ");");
+    }
+
+    function DeleteCourse(No) {
+        $.ajax({
+            method: "post",
+            data: { no: No },
+            async: false,
+            url: '@Url.Action("DeleteCourse","Course", new { area = "Course" })',
+            success: function (result) {
+                if (result.success) {
+                    GetCourseList();
+                }
+
+            }
+        });
+    }
+
+</script>

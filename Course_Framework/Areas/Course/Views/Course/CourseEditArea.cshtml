@@ -1,0 +1,118 @@
+﻿@model Course_Framework.Models.DB.BS_Course
+@{
+    ViewBag.title = "_CourseEditArea";
+    Layout = null;
+}
+
+
+<form method="post" id="courseform">
+    @{
+        if (Model != null && Model.CourseNo > 0)
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.CourseID, "課號", new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CourseID, new { @class = "form-control", @placeholder = "課號", @readonly = true })
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.HiddenFor(m => m.CourseID, new { @class = "form-control", @placeholder = "課號" })
+            </div>
+        }
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "課名", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "課名", @onblur = "NameCheck();" })
+        <span class="text-danger" style="display: none" id="err_name">*請輸入課名</span>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Credits, "學分", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Credits, new { @class = "form-control", @placeholder = "學分", @min = 0, @max = 100, @type = "Number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, "上課地點", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "上課地點", @onblur = "AddressCheck();" })
+        <span class="text-danger" style="display: none" id="err_address">*請輸入上課地點</span>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.TeacherName, "講師名字", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.TeacherName, new { @class = "form-control", @placeholder = "講師名字", @onblur = "TeacherNameCheck();" })
+        <span class="text-danger" style="display: none" id="err_teachername">*請輸入講師名字</span>
+    </div>
+
+
+    <button type="button" class="btn btn-primary" onclick="Submit();">
+        @if (Model.CourseNo > 0)
+        {
+            @:儲存
+        }
+        else
+        {
+            @:新增
+        }
+    </button>
+    <button type="reset" class="btn btn-primary" id="resetcourseform">清空</button>
+
+</form>
+
+<script>
+    function Submit() {
+        var check = true;
+        if (!NameCheck() || !TeacherNameCheck() || !AddressCheck()) {
+            check = false;
+        }
+
+        if (check) {
+            var formdata = $("#courseform").serialize();
+        $.ajax({
+            method: "post",
+            data: formdata + "&No=" + @Model.CourseNo ,
+            dataType: "json",
+            async: false,
+            cache: false,
+            url: '@Model.CourseNo' == '0' ? '@Url.Action("AddCourse","Course", new { area = "Course" })' : '@Url.Action("UpdateCourse","Course", new { area = "Course" })',
+            success: function (result) {
+                if (result.success) {
+                    $("#resetcourseform").click();
+                      GetCourseEditArea(0);
+                      GetCourseList();
+                  }
+            }
+        });
+        }
+
+    }
+
+    function NameCheck() {
+        if ($("#Name").val() == '') {
+            $('#err_name').show();
+            return false;
+        } else {
+            $('#err_name').hide();
+            return true;
+        }
+    }
+
+     function TeacherNameCheck() {
+         if ($("#TeacherName").val() == '') {
+            $('#err_teachername').show();
+            return false;
+        } else {
+            $('#err_teachername').hide();
+            return true;
+        }
+    }
+
+    function AddressCheck() {
+        if ($("#Address").val() == '') {
+            $('#err_address').show();
+            return false;
+        } else {
+            $('#err_address').hide();
+            return true;
+        }
+    }
+
+</script>
