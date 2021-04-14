@@ -1,0 +1,57 @@
+﻿
+<form method="post" id="form">
+    @{
+        if (ViewBag.StudentList != null)
+        {
+            <div class="row">
+                <select name="students" id="students" class="custom-select col-6" onchange="SelectStudent()">
+                    <option selected value="0">請選擇學生</option>
+                    @foreach (var data in ViewBag.StudentList)
+                    {
+                        <option value="@data.StudentNo">@(data.Name +"(" + @data.StudentID + ")")</option>
+                    }
+                </select>
+                <div class="col-6"><span id="err_student" class="text-danger">*請選擇學生</span></div>
+            </div>
+            <div id="chooseCourse" class="row mt-3 mb-3">
+            </div>
+            <div><span id="err_course" class="text-danger">*請選擇課程</span></div>
+            <div class="row">
+                <button type="button" class="btn btn-primary btn-block col-8" style="margin: 0 auto;" id="addbtn" onclick="Submit(0);">新增</button>
+            </div>
+        }
+        else
+        {
+            <select name="students" id="students" class="custom-select" onchange="SelectStudent()">
+                <option selected value="0">目前無學生可選擇</option>
+            </select>
+            <div id="chooseCourse">
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-primary disabled" id="addbtn">新增</button>
+            </div>
+        }
+    }
+</form>
+<script>
+    $(document).ready(function () {
+        SelectStudent();
+        $('#err_student').hide();
+        $('#err_course').hide();
+   })
+            function SelectStudent() {
+            console.log($('#students').val());
+            $.ajax({
+            method: "get",
+            data: { no: $('#students').val() },
+            async: false,
+            url: '@Url.Action("GetStudentEnrollment", "Student", new { area = "Student" })',
+            success: function (result) {
+            $('#chooseCourse').empty();
+            $('#chooseCourse').append(result);
+            }
+            });
+            }
+
+</script>
+

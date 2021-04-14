@@ -136,6 +136,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataObject\Course\CourseHelper.cs" />
     <Compile Include="DataObject\Student\StudentHelper.cs" />
+    <Compile Include="DataObject\Student\StudentModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -214,6 +215,10 @@
     <Content Include="Areas\Student\Views\Student\Index.cshtml" />
     <Content Include="Areas\Student\Views\Student\StudentList.cshtml" />
     <Content Include="Areas\Student\Views\Student\StudentEditArea.cshtml" />
+    <Content Include="Areas\Student\Views\Student\SelectionCourseList.cshtml" />
+    <Content Include="Areas\Student\Views\Student\GetStudentEnrollment.cshtml" />
+    <Content Include="Areas\Student\Views\Student\SelectionCourseEditArea.cshtml" />
+    <Content Include="Areas\Student\Views\Student\SelectionCourseIndex.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

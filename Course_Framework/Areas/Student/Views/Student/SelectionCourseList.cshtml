@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Course_Framework.DataObject.Student.SelectionCourseModel>
+<div class="table-responsive mt-3">
+    <table class="table table-bordered align-middle">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">學號</th>
+                <th scope="col">課程</th>
+                <th scope="col">功能</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td>@data.StudentID</td>
+                    <td>@data.Courses</td>
+                    <td>
+                        <i class="far fa-edit pl-1 pr-1" title="編輯" style="cursor: pointer;" onclick="GetEnrollmentEditArea(@data.StudentNo);"></i>
+                        <i class="far fa-trash-alt pl-1 pr-1" title="刪除" style="cursor: pointer;" onclick="CheckDelete(@data.StudentNo);"></i>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+    })
+
+
+
+</script>

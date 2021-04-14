@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "SelectionCourseIndex";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+}
+<div id="editarea"></div>
+<div id="listarea"></div>
+<script>
+    $(document).ready(function () {
+        SelectList();
+        SelectionCourseEditArea();
+   })
+
+    function SelectList() {
+          $.ajax({
+            method: "get",
+            data: {},
+            async: false,
+            url: '@Url.Action("SelectionCourseList", "Student", new { area = "Student" })',
+              success: function (result) {
+                  $('#listarea').empty();
+                  $('#listarea').append(result);
+            }
+            });
+    }
+
+        function SelectionCourseEditArea() {
+          $.ajax({
+            method: "get",
+            data: {},
+            async: false,
+            url: '@Url.Action("SelectionCourseEditArea", "Student", new { area = "Student" })',
+              success: function (result) {
+                  $('#editarea').empty();
+                  $('#editarea').append(result);
+            }
+            });
+    }
+
+    function CheckDelete(no) {
+        OpenPopUp("刪除學生", "確定要刪除此學生的課程 ?", "確定", "DeleteEnrollment(" + no + ");");
+    }
+
+    function DeleteEnrollment(No) {
+        $.ajax({
+            method: "post",
+            data: { no: No },
+            async: false,
+            url: '@Url.Action("DeleteEnrollment", "Student", new { area = "Student" })',
+            success: function (result) {
+            if (result.success) {
+                SelectList();
+            }
+            }
+            });
+            }
+
+            function SelectStudent() {
+            console.log($('#students').val());
+            $.ajax({
+            method: "get",
+            data: { no: $('#students').val() },
+            async: false,
+            url: '@Url.Action("GetStudentEnrollment", "Student", new { area = "Student" })',
+            success: function (result) {
+            $('#chooseCourse').empty();
+            $('#chooseCourse').append(result);
+            }
+            });
+            }
+
+    function Submit(no) {
+        var check = true;
+            var selectitem = [];
+            var selectstudent = $('#students').val();
+            if (selectstudent == 0) {
+                $('#err_student').show();
+                check = false;
+            }
+            if ($(':checkbox:checked').length == 0 && no == 1) {
+                $('#err_course').show();
+                check = false;
+            }
+        if (check) {
+            $('#err_student').hide();
+            $('#err_course').hide();
+            $(':checkbox:checked').each(function (i) {
+            selectitem.push($(this).val());
+            });
+
+            $.ajax({
+            method: "post",
+                data: { data: selectitem, no: $('#students').val() },
+            async: false,
+            url: no == 1 ? '@Url.Action("AddEnrollment", "Student", new { area = "Student" })' : '@Url.Action("UpdateEnrollment", "Student", new { area = "Student" })',
+            success: function (result) {
+            $('#students').val(0);
+                SelectList();
+                SelectionCourseEditArea();
+            }
+            });
+            }
+
+    }
+
+    function GetEnrollmentEditArea(no) {
+        $('#students').val(no);
+        SelectStudent();
+    }
+</script>

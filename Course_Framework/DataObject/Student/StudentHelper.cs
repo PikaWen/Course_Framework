@@ -2,6 +2,7 @@
 using Course_Framework.Models.DB;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Course_Framework.DataObject.Student
@@ -73,6 +74,62 @@ namespace Course_Framework.DataObject.Student
                 }
 
                 sE_Student.Active = false;
+
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IQueryable<BS_Enrollment> GetAllEnrollment()
+        {
+            try
+            {
+                return _context.BS_Enrollment;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool InsertEnrollment(List<BS_Enrollment> data)
+        {
+            try
+            {
+                _context.BS_Enrollment.AddRange(data);
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool UpdateEnrollment(List<BS_Enrollment> data, int no)
+        {
+            try
+            {
+                var origin = _context.BS_Enrollment.Where(x => x.StudentNo == no);
+                _context.BS_Enrollment.RemoveRange(origin);
+                _context.BS_Enrollment.AddRange(data);
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool DeleteEnrollment(int No = 0)
+        {
+            try
+            {
+                var origin = _context.BS_Enrollment.Where(m => m.StudentNo == No);
+
+                _context.BS_Enrollment.RemoveRange(origin);
 
                 return _context.SaveChanges() > 0;
             }
