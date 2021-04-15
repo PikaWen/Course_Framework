@@ -43,6 +43,7 @@
             url: '@Url.Action("DeleteCourse","Course", new { area = "Course" })',
             success: function (result) {
                 if (result.success) {
+                    GetCourseEditArea(0);
                     GetCourseList();
                 }
 

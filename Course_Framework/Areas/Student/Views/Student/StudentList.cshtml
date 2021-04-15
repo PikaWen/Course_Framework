@@ -41,6 +41,7 @@
             url: '@Url.Action("DeleteStudent", "Student", new { area = "Student" })',
             success: function (result) {
                 if (result.success) {
+                    GetStudentEditArea(0);
                     GetStudentList();
                 }
 

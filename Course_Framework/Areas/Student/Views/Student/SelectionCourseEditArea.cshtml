@@ -1,7 +1,7 @@
 ﻿
 <form method="post" id="form">
     @{
-        if (ViewBag.StudentList != null)
+        if (ViewBag.StudentList != null && ViewBag.StudentList.Count > 0)
         {
             <div class="row mr-0 ml-0">
                 <select name="students" id="students" class="custom-select col-6" onchange="SelectStudent(0)">
@@ -27,10 +27,7 @@
                     <option selected value="0">目前無學生可選擇</option>
                 </select>
             </div>
-            <div id="chooseCourse">
-            </div>
-            <div class="row">
-                <button type="button" class="btn btn-primary btn-block col-8 disabled" style="margin: 0 auto;" id="addbtn">新增</button>
+            <div id="chooseCourse"  class="row mr-0 ml-0 mt-3 mb-3">
             </div>
         }
     }

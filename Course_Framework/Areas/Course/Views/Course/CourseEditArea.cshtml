@@ -33,7 +33,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Credits, "學分", new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Credits, new { @class = "form-control", @placeholder = "學分", @min = 0, @max = 100, @type = "Number" })
+        @Html.TextBoxFor(m => m.Credits, new { @class = "form-control", @placeholder = "學分", @type = "Number"})
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Address, "上課地點", new { @class = "control-label" })
@@ -80,6 +80,11 @@
                 Address: {
                     required: true,
                     maxlength: 20
+                },
+                Credits: {
+                    number: true,
+                    min: 0,
+                    max: 100
                 }
             }
         });
