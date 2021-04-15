@@ -156,7 +156,7 @@
     <Compile Include="Models\CourseDbContext.cs" />
     <Compile Include="Models\DB\BS_Course.cs" />
     <Compile Include="Models\DB\SE_Student.cs" />
-    <Compile Include="Models\DB\BS_StudentCource.cs" />
+    <Compile Include="Models\DB\BS_Enrollment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -178,8 +178,12 @@
     <Content Include="Content\images\ui-icons_777777_256x240.png" />
     <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\additional-methods.js" />
+    <Content Include="Scripts\additional-methods.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\messages_zh_TW.js" />
+    <Content Include="Scripts\messages_zh_TW.min.js" />
     <Content Include="Scripts\vue-2.6.12.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

@@ -4,7 +4,11 @@
     Layout = null;
 }
 
-
+<style>
+    label.error {
+        color: #ff0000;
+    }
+</style>
 <form method="post" id="courseform">
     @{
         if (Model != null && Model.CourseNo > 0)
@@ -24,7 +28,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Name, "課名", new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "課名", @onblur = "NameCheck();" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "課名", @maxLength = 20 })
         <span class="text-danger" style="display: none" id="err_name">*請輸入課名</span>
     </div>
     <div class="form-group">
@@ -33,34 +37,57 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Address, "上課地點", new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "上課地點", @onblur = "AddressCheck();" })
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "上課地點", @maxLength = 20 })
         <span class="text-danger" style="display: none" id="err_address">*請輸入上課地點</span>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.TeacherName, "講師名字", new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.TeacherName, new { @class = "form-control", @placeholder = "講師名字", @onblur = "TeacherNameCheck();" })
+        @Html.TextBoxFor(m => m.TeacherName, new { @class = "form-control", @placeholder = "講師名字", @maxLength = 20 })
         <span class="text-danger" style="display: none" id="err_teachername">*請輸入講師名字</span>
     </div>
 
-
-    <button type="button" class="btn btn-primary" onclick="Submit();">
-        @if (Model.CourseNo > 0)
-        {
-            @:儲存
-        }
-        else
-        {
-            @:新增
-        }
-    </button>
-    <button type="reset" class="btn btn-primary" id="resetcourseform">清空</button>
-
+    @if (Model.CourseNo > 0)
+    {
+<button type="button" class="btn btn-primary" onclick="Submit();">儲存</button>
+    }
+    else
+    {
+<button type="button" class="btn btn-primary" onclick="Submit();">新增</button>
+        <button type="reset" class="btn btn-primary" id="resetcourseform">清空</button>
+    }
+    
 </form>
 
 <script>
+    $(document).ready(function () {
+        $('#Credits').keypress(function (event) {
+
+            if (event.which != 8 && isNaN(String.fromCharCode(event.which))) {
+                event.preventDefault();
+            }
+
+        });
+        $("#courseform").validate({
+            rules: {
+                TeacherName: {
+                    required: true,
+                    maxlength: 20
+                },
+                Name: {
+                    required: true,
+                    maxlength: 20
+                },
+                Address: {
+                    required: true,
+                    maxlength: 20
+                }
+            }
+        });
+    })
+    
     function Submit() {
         var check = true;
-        if (!NameCheck() || !TeacherNameCheck() || !AddressCheck()) {
+        if (!$("#courseform").valid()) {
             check = false;
         }
 
@@ -83,36 +110,6 @@
         });
         }
 
-    }
-
-    function NameCheck() {
-        if ($("#Name").val() == '') {
-            $('#err_name').show();
-            return false;
-        } else {
-            $('#err_name').hide();
-            return true;
-        }
-    }
-
-     function TeacherNameCheck() {
-         if ($("#TeacherName").val() == '') {
-            $('#err_teachername').show();
-            return false;
-        } else {
-            $('#err_teachername').hide();
-            return true;
-        }
-    }
-
-    function AddressCheck() {
-        if ($("#Address").val() == '') {
-            $('#err_address').show();
-            return false;
-        } else {
-            $('#err_address').hide();
-            return true;
-        }
     }
 
 </script>

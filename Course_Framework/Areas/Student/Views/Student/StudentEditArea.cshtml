@@ -4,7 +4,11 @@
     Layout = null;
 }
 
-
+<style>
+    label.error {
+        color: #ff0000;
+    }
+</style>
 <form method="post" id="studentform">
     @{
         if (Model != null && Model.StudentNo > 0)
@@ -24,34 +28,33 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Name, "姓名", new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "姓名", @onblur = "NameCheck();" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "姓名", @maxLength = 20 })
         <span class="text-danger" style="display: none" id="err_name">*請輸入姓名</span>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Birth, "生日", new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Birth, "{0:yyyy-MM-dd}" , new { @class = "form-control timepicker", @placeholder = "生日"})
+        @Html.TextBoxFor(m => m.Birth, "{0:yyyy-MM-dd}", new { @class = "form-control timepicker", @placeholder = "生日" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Email, "Email", new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @onblur = "EmailCheck();" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @type="email", @maxLength = 50 })
         <span class="text-danger" style="display: none" id="err_email">*請輸入Email</span>
     </div>
+    @if (Model.StudentNo > 0)
+    {
+        <button type="button" class="btn btn-primary" onclick="Submit();">儲存</button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-primary" onclick="Submit();">新增</button>
+        <button type="reset" class="btn btn-primary" id="resetstudentform">清空</button>
+    }
 
-    <button type="button" class="btn btn-primary" onclick="Submit();">
-        @if (Model.StudentNo > 0)
-        {
-            @:儲存
-        }
-        else
-        {
-            @:新增
-        }
-    </button>
-    <button type="reset" class="btn btn-primary" id="resetstudentform">清空</button>
+
 
 </form>
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#Birth").datepicker({
             dateFormat: "yy-mm-dd",
@@ -59,11 +62,23 @@
             defaultDate: new Date(),
             minDate: new Date("1990/01/01")
         });
+
+        $("#studentform").validate({
+            rules: {
+                Email: {
+                    required: true,
+                    email: true
+                },
+                Name: {
+                    required: true
+                }
+            }
+        });
     });
 
     function Submit() {
         var check = true;
-        if (!NameCheck() || !EmailCheck()) {
+        if (!$("#studentform").valid()) {
             check = false;
         }
 
@@ -88,24 +103,5 @@
 
     }
 
-    function NameCheck() {
-        if ($("#Name").val() == '') {
-            $('#err_name').show();
-            return false;
-        } else {
-            $('#err_name').hide();
-            return true;
-        }
-    }
-
-    function EmailCheck() {
-        if ($("#Email").val() == '') {
-            $('#err_email').show();
-            return false;
-        } else {
-            $('#err_email').hide();
-            return true;
-        }
-    }
 
 </script>

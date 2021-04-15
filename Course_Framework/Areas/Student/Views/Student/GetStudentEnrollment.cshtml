@@ -6,8 +6,9 @@
                id="@data.CourseID"
                name="@data.CourseID"
                value="@data.CourseNo"
-               checked="@data.isSelect">
-        <label class="custom-control-label" for="@data.CourseID">@data.CourseName</label>
+               checked="@data.isSelect"
+               onchange="CheckSelect();">
+        <label class="custom-control-label" style="word-break: break-all;" for="@data.CourseID">@data.CourseName</label>
     </div>
 }
 <script>
@@ -21,4 +22,10 @@
             $('#addbtn').attr("onclick", "Submit(1);");
         }
     });
+    function CheckSelect() {
+        if ($(':checkbox:checked').length > 0) {
+            $('#err_course').hide();
+        }
+
+    }
 </script>
